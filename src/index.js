@@ -1,10 +1,20 @@
 // Use "type: commonjs" in package.json to use CommonJS modules
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 3000;
 
 app.set('view engine', 'ejs')
-app.set('views',"./views")
+app.set('views', "./views")
+
+app.use(express.json());
+app.use(express.urlencoded());
+
+app.use(cors({
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 require("../db/db")(app);
 require("../rotas/home")(app);

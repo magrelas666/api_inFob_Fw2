@@ -13,7 +13,11 @@ module.exports = (app) => {
                     tiponoticia: tiponoticia,
                     datahoracadastro: new Date().toLocaleString('pt-BR', { timeZone: 'America/Cuiaba' })
                 })
-            res.status(200).send("Notícia Cadastrada")
+            if (!resultado.acknowledged) {
+                res.json({ status: 0 })
+            }
+            res.json({ status: 1 })
+            // res.status(200).send("Notícia Cadastrada")
         } catch (error) {
             res.status(400).send("Não foi possível cadastrar a notícia")
         }
